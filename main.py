@@ -37,11 +37,11 @@ if __name__ == '__main__':
     my_cam = onvif.ONVIFCamera('192.168.15.18', 80, 'Admin', '1234')
     print(my_cam.devicemgmt.GetDeviceInformation())
     print(my_cam.devicemgmt.GetUsers())
-    try:
-        my_cam.devicemgmt.CreateUsers('User', 'User', 'User', 'User')
-        print(my_cam.devicemgmt.GetUsers())
-    except Exception as e:
-        print(e)
-    # ip_searh(18, 20, 15)
+    # try:
+    #     my_cam.devicemgmt.CreateUsers('User', 'User', 'User', 'User')
+    #     print(my_cam.devicemgmt.GetUsers())
+    # except Exception as e:
+    #     print(e)
+    ip_searh(20, 28, 15)
 
 
