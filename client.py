@@ -5,4 +5,4 @@ for x in range(10):
     sock.send(bytes(f'Hello, world {x}', encoding='UTF-8'))  # отправляем сообщение
     data = sock.recv(1024)  # читаем ответ от серверного сокета
     sock.close()  # закрываем соединение
-# print(data)
+    print(data)
