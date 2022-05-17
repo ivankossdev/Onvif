@@ -1,8 +1,8 @@
 import netifaces
-import onvif
 from onvif import ONVIFCamera
 import getmac
 from netifaces import interfaces, ifaddresses, AF_INET
+import requests
 
 
 def media_profile_configuration(address):
@@ -26,22 +26,28 @@ def ip_searh(a, b, c):
         # print(f"ip=192.168.{c}.{str(x)}", 'mac=' + str(getmac.get_mac_address(ip=f"192.168.{c}.{str(x)}")))
         print('--------------------------------------------')
         print(f"ip = 192.168.{c}.{str(x)}")
-        media_profile_configuration(f"192.168.{c}.{str(x)}")
+        # media_profile_configuration(f"192.168.{c}.{str(x)}")
+        result = requests.get(f"http://192.168.{c}.{str(x)}/cgi-bin/"
+                              "param.cgi?action=get&type= deviceInfo")
+        print(result.text)
         print('--------------------------------------------\n')
 
 
 if __name__ == '__main__':
-    addr = netifaces.ifaddresses(interfaces()[0])
-    for x in addr[netifaces.AF_INET]:
-        print(x)
-    my_cam = onvif.ONVIFCamera('192.168.15.18', 80, 'Admin', '1234')
-    print(my_cam.devicemgmt.GetDeviceInformation())
-    print(my_cam.devicemgmt.GetUsers())
-    # try:
-    #     my_cam.devicemgmt.CreateUsers('User', 'User', 'User', 'User')
-    #     print(my_cam.devicemgmt.GetUsers())
-    # except Exception as e:
-    #     print(e)
-    ip_searh(20, 28, 15)
+    # addr = netifaces.ifaddresses(interfaces()[0])
+    # print(netifaces.ifaddresses(interfaces()[0]))
+    # for x in addr[netifaces.AF_INET]:
+    #     print(x)
 
+    result = requests.get(f"http://192.168.15.18/cgi-bin/"
+                          f"param.cgi?"
+                          f"action=get&type= deviceInfo")
+    print(result.text)
+    resrart = "http://192.168.15.18/cgi-bin/operate.cgi?userName=Admin&password=1234&action=restart"
+    info = "http://192.168.15.18/cgi-bin/param.cgi?userName=Admin&password=1234&action=get&type=cameraInfo&cameraID=1"
+    network = "http://192.168.15.18/cgi-bin/param.cgi?userName=Admin&password=1234" \
+              "&action=get&type=localNetwork&IPProtoVer=1&netCardId=1"
+    image = "http://192.168.15.18/cgi-bin/image.cgi?userName=Admin&password=1234&cameraID=1&quality%20=5"
+    r = requests.get(info)
 
+    print(r.content)
