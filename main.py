@@ -34,20 +34,8 @@ def ip_searh(a, b, c):
 
 
 if __name__ == '__main__':
-    # addr = netifaces.ifaddresses(interfaces()[0])
-    # print(netifaces.ifaddresses(interfaces()[0]))
-    # for x in addr[netifaces.AF_INET]:
-    #     print(x)
+    print("Сетевые адреса")
+    addr = netifaces.ifaddresses(interfaces()[0])
+    for x in addr[netifaces.AF_INET]:
+        print(x)
 
-    result = requests.get(f"http://192.168.15.18/cgi-bin/"
-                          f"param.cgi?"
-                          f"action=get&type= deviceInfo")
-    print(result.text)
-    resrart = "http://192.168.15.18/cgi-bin/operate.cgi?userName=Admin&password=1234&action=restart"
-    info = "http://192.168.15.18/cgi-bin/param.cgi?userName=Admin&password=1234&action=get&type=cameraInfo&cameraID=1"
-    network = "http://192.168.15.18/cgi-bin/param.cgi?userName=Admin&password=1234" \
-              "&action=get&type=localNetwork&IPProtoVer=1&netCardId=1"
-    image = "http://192.168.15.18/cgi-bin/image.cgi?userName=Admin&password=1234&cameraID=1&quality%20=5"
-    r = requests.get(info)
-
-    print(r.content)
