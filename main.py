@@ -3,6 +3,7 @@ from onvif import ONVIFCamera
 import getmac
 from netifaces import interfaces, ifaddresses, AF_INET
 import requests
+import subprocess
 
 
 def media_profile_configuration(address):
@@ -33,9 +34,23 @@ def ip_searh(a, b, c):
         print('--------------------------------------------\n')
 
 
+def get_ping_result(a, b, c, d):
+    cmd_str = f"ping {a}.{b}.{c}.{d} -n 1 -w 600"
+    DETACHED_PROCESS = 0x00000008
+    try:
+        subprocess.run(cmd_str, creationflags=DETACHED_PROCESS, check=True)
+    except subprocess.CalledProcessError as err:
+        return f"Not {a}.{b}.{c}.{d}"
+    else:
+        return f"Searched {a}.{b}.{c}.{d}"
+
+
 if __name__ == '__main__':
     print("Сетевые адреса")
     addr = netifaces.ifaddresses(interfaces()[0])
     for x in addr[netifaces.AF_INET]:
         print(x)
+    print("Камеры")
+    for camera_ip in range(50, 54):
+        print(get_ping_result(192, 168, 15, camera_ip))
 
