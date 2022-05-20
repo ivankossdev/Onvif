@@ -4,6 +4,7 @@ import getmac
 from netifaces import interfaces, ifaddresses, AF_INET
 import requests
 import subprocess
+import time
 
 
 def media_profile_configuration(address):
@@ -12,7 +13,6 @@ def media_profile_configuration(address):
         print(mycam.devicemgmt.GetDeviceInformation()['Model'])
         info = mycam.devicemgmt.GetNetworkInterfaces()[0]
         print(info['Info']['HwAddress'])
-        mycam.devicemgmt.SystemReboot()
     except Exception as s:
         print(s)
 
@@ -40,14 +40,14 @@ def get_ping_result(a, b, c, d):
     try:
         subprocess.run(cmd_str, creationflags=DETACHED_PROCESS, check=True)
     except subprocess.CalledProcessError as err:
-        return False
+        pass
     else:
         return f"{a}.{b}.{c}.{d}"
 
 
 def search_ip_address(first, last):
     ip_addreses = []
-    for camera_ip in range(first, last+1):
+    for camera_ip in range(first, last + 1):
         if get_ping_result(192, 168, 15, camera_ip):
             ip_addreses.append(get_ping_result(192, 168, 15, camera_ip))
     return ip_addreses
@@ -57,16 +57,32 @@ def clear_arp_table():
     subprocess.run("netsh interface ip delete arpcache", creationflags=0x00000008, check=True)
 
 
+def setup_ip_address(ip):
+    r = (f"http://192.168.0.250/cgi-bin/param.cgi?"
+         f"userName=Admin&password=1234&action=set&type=localNetwork&netCardId=1&IPProtoVer=1&"
+         f"IPAddress={ip}&"
+         f"subNetmask=255.255.255.0&"
+         f"subGetway=192.168.15.1&preferredDNS=128.0.0.1&alternateDNS=128.0.0.2")
+    try:
+        result = requests.get(r)
+        print(result)
+        time.sleep(3)
+        print("restart camera")
+        result = requests.get(f"http://{ip}/cgi-bin/operate.cgi?userName=Admin&password=1234&action=restart")
+        print(result)
+    except Exception as error:
+        print(error)
+
+
 if __name__ == '__main__':
     # print("Сетевые адреса")
     # addr = netifaces.ifaddresses(interfaces()[0])
     # for x in addr[netifaces.AF_INET]:
     #     print(x)
-    print("Камеры")
-
-    print(search_ip_address(50, 53))
-    clear_arp_table()
-
-
-
-
+    # print("Камеры")
+    # clear_arp_table()
+    # print(search_ip_address(50, 53))
+    # subprocess.call('arp -a', shell=True)
+    # print(search_ip_address(52, 53))
+    # setup_ip_address("192.168.15.53")
+    media_profile_configuration("192.168.15.53")
