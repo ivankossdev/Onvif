@@ -70,6 +70,7 @@ def setup_ip_address(ip):
         print("restart camera")
         result = requests.get(f"http://{ip}/cgi-bin/operate.cgi?userName=Admin&password=1234&action=restart")
         print(result)
+        clear_arp_table()
     except Exception as error:
         print(error)
 
@@ -84,5 +85,7 @@ if __name__ == '__main__':
     # print(search_ip_address(50, 53))
     # subprocess.call('arp -a', shell=True)
     # print(search_ip_address(52, 53))
-    # setup_ip_address("192.168.15.53")
-    media_profile_configuration("192.168.15.53")
+    setup_ip_address('192.168.15.52')
+    setup_ip_address('192.168.15.58')
+
+
