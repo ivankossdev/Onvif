@@ -52,12 +52,9 @@ def search_ip_address(first, last):
             ip_addreses.append(get_ping_result(192, 168, 15, camera_ip))
     return ip_addreses
 
-
-def clear_arp_table():
-    subprocess.run("netsh interface ip delete arpcache", creationflags=0x00000008, check=True)
-
-
 def setup_ip_address(ip):
+    subprocess.run("arp /d", creationflags=0x00000008, check=True)
+    subprocess.run("ping 192.168.0.250 -n 1 -w 600", creationflags=0x00000008, check=True)
     r = (f"http://192.168.0.250/cgi-bin/param.cgi?"
          f"userName=Admin&password=1234&action=set&type=localNetwork&netCardId=1&IPProtoVer=1&"
          f"IPAddress={ip}&"
@@ -70,7 +67,7 @@ def setup_ip_address(ip):
         print("restart camera")
         result = requests.get(f"http://{ip}/cgi-bin/operate.cgi?userName=Admin&password=1234&action=restart")
         print(result)
-        clear_arp_table()
+        subprocess.run("arp /d", creationflags=0x00000008, check=True)
     except Exception as error:
         print(error)
 
@@ -85,6 +82,10 @@ if __name__ == '__main__':
     # print(search_ip_address(50, 53))
     # subprocess.call('arp -a', shell=True)
     # print(search_ip_address(52, 53))
+
+    # clear_arp_table()
+    # subprocess.call('arp -a', shell=True)
+
     setup_ip_address('192.168.15.52')
     setup_ip_address('192.168.15.58')
 
