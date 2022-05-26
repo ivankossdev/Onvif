@@ -5,6 +5,7 @@ from netifaces import interfaces, ifaddresses, AF_INET
 import requests
 import subprocess
 import time
+import threading
 
 
 def media_profile_configuration(address):
@@ -72,6 +73,42 @@ def setup_ip_address(ip):
         print(error)
 
 
+def scan_one_ip_address():
+    """
+    Функция возвращает кортеж найденых IP адресов
+    :return:
+    """
+    r1 = int("0x00", 16)
+    r2 = int("0x5f", 16)
+    r3 = int("0x03", 16)
+    r4 = int("0x88", 16)
+    r5 = int("0x7f", 16)
+    r6 = int("0xe0", 16)
+
+    mac = f"{hex(r6)[2:]}-{hex(r5)[2:]}-{hex(r4)[2:]}-{hex(r3)[2:]}-{hex(r2)[2:]}-{hex(r1)[2:]}"
+    subprocess.run(f"arp /d", creationflags=0x00000008, check=True)
+    subprocess.run(f"arp /s 192.168.0.250 {mac}", creationflags=0x00000008, check=True)
+    try:
+        print(subprocess.run(f"ping 192.168.0.250 -n 1 -w 600", creationflags=0x00000008, check=True))
+
+    except Exception as e:
+        print(f"Not found {mac}")
+
+
+    # time.sleep(1)
+    # r1 = int("0xff", 16)
+    # mac = f"{hex(r6)[2:]}-{hex(r5)[2:]}-{hex(r4)[2:]}-{hex(r3)[2:]}-{hex(r2)[2:]}-{hex(r1)[2:]}"
+    # subprocess.run(f"arp /d", creationflags=0x00000008, check=True)
+    # subprocess.run(f"arp /s 192.168.0.250 "
+    #                f"{mac}",
+    #                creationflags=0x00000008, check=True)
+    # try:
+    #     subprocess.run(f"ping 192.168.0.250 -n 1 -w 600", creationflags=0x00000008, check=True)
+    #     print(r1)
+    # except Exception as e:
+    #     print(f"Not found {mac}")
+
+
 if __name__ == '__main__':
     # print("Сетевые адреса")
     # addr = netifaces.ifaddresses(interfaces()[0])
@@ -86,7 +123,7 @@ if __name__ == '__main__':
     # clear_arp_table()
     # subprocess.call('arp -a', shell=True)
 
-    setup_ip_address('192.168.15.52')
-    setup_ip_address('192.168.15.58')
-
+    # setup_ip_address('192.168.15.52')
+    # setup_ip_address('192.168.15.58')
+    scan_one_ip_address()
 
