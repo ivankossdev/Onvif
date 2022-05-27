@@ -1,0 +1,26 @@
+Reply that E0:7F:88:03:70:00 is 192.168.0.250 in 10.538ms
+Reply that E0:7F:88:03:6F:C0 is 192.168.0.250 in 1.016ms
+Reply that E0:7F:88:03:70:00 is 192.168.0.250 in 1.014ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.017ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.011ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.024ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.017ms
+Reply that E0:7F:88:03:6F:C2 is 192.168.0.250 in 1.015ms
+Reply that E0:7F:88:03:70:00 is 192.168.0.250 in 1.009ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.008ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.440ms
+Reply that E0:7F:88:03:6F:9C is 192.168.0.250 in 0.884ms
+Reply that E0:7F:88:03:6F:9C is 192.168.0.250 in 1.010ms
+Reply that E0:7F:88:03:6F:9C is 192.168.0.250 in 1.011ms
+Reply that E0:7F:88:03:6F:7F is 192.168.0.250 in 1.022ms
+Reply that E0:7F:88:03:6F:F4 is 192.168.0.250 in 1.014ms
+Reply that E0:7F:88:03:6F:F4 is 192.168.0.250 in 1.014ms
+Reply that E0:7F:88:03:6F:9C is 192.168.0.250 in 1.025ms
+Reply that E0:7F:88:03:6F:F4 is 192.168.0.250 in 1.012ms
+Reply that E0:7F:88:03:6F:85 is 192.168.0.250 in 1.013ms
+
+Ping statistics for 192.168.0.250/arp
+     20 probes sent. 
+     20 successful, 0 failed.
+Approximate trip times in milli-seconds:
+     Minimum = 0.884ms, Maximum = 10.538ms, Average = 1.506ms

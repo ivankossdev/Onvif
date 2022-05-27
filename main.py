@@ -76,16 +76,32 @@ def setup_ip_address(ip):
         print(error)
 
 
-def scan_one_ip_address():
+def scan_one_ip_address(th):
     """
     Функция возвращает кортеж найденых IP адресов
     :return:
     """
     path = pathlib.Path("arp-ping.exe")
     try:
-        os.system(f"{path} 192.168.0.250 -n 20")
+        # os.system(f"{path} 192.168.0.250 -n 20")
+        with open(f'mac_{th}.txt', 'w') as output:
+            process = subprocess.Popen(f"{path} 192.168.0.250 -n 20", stdout=output)
+            process.communicate()
     except Exception as e:
         print(e)
+
+def thread_scanner():
+    my_thread_1 = threading.Thread(target=scan_one_ip_address, args="1")
+    my_thread_2 = threading.Thread(target=scan_one_ip_address, args="2")
+    my_thread_3 = threading.Thread(target=scan_one_ip_address, args="3")
+    my_thread_4 = threading.Thread(target=scan_one_ip_address, args="4")
+    my_thread_1.start()
+    time.sleep(3)
+    my_thread_2.start()
+    time.sleep(3)
+    my_thread_3.start()
+    time.sleep(3)
+    my_thread_4.start()
 
 
 if __name__ == '__main__':
@@ -99,8 +115,13 @@ if __name__ == '__main__':
     # subprocess.call('arp -a', shell=True)
     # print(search_ip_address(52, 53))
 
-    # setup_ip_address('192.168.15.52')
-    # setup_ip_address('192.168.15.58')
+    setup_ip_address('192.168.15.52')
+    setup_ip_address('192.168.15.53')
+    setup_ip_address('192.168.15.54')
+    setup_ip_address('192.168.15.55')
+    setup_ip_address('192.168.15.56')
+    setup_ip_address('192.168.15.57')
+    setup_ip_address('192.168.15.58')
     # scan_one_ip_address()
 
     # path = pathlib.Path("arp-ping.exe")
@@ -108,16 +129,7 @@ if __name__ == '__main__':
     #     process = subprocess.Popen(f"{path} 192.168.0.250 -n 10", stdout=output)
     #     process.communicate()
 
-    my_thread = threading.Thread(target=scan_one_ip_address)
-    my_thread_2 = threading.Thread(target=scan_one_ip_address)
-    my_thread_3 = threading.Thread(target=scan_one_ip_address)
-    my_thread_4 = threading.Thread(target=scan_one_ip_address)
-    my_thread.start()
-    time.sleep(3)
-    my_thread_2.start()
-    time.sleep(3)
-    my_thread_3.start()
-    time.sleep(3)
-    my_thread_4.start()
+    # thread_scanner()
+
 
     # setup_ip_address('192.168.15.53')
