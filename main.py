@@ -83,7 +83,7 @@ def scan_one_ip_address():
     """
     path = pathlib.Path("arp-ping.exe")
     try:
-        os.system(f"{path} 192.168.0.250 -n 30")
+        os.system(f"{path} 192.168.0.250 -n 20")
     except Exception as e:
         print(e)
 
@@ -108,6 +108,16 @@ if __name__ == '__main__':
     #     process = subprocess.Popen(f"{path} 192.168.0.250 -n 10", stdout=output)
     #     process.communicate()
 
-    # scan_one_ip_address()
+    my_thread = threading.Thread(target=scan_one_ip_address)
+    my_thread_2 = threading.Thread(target=scan_one_ip_address)
+    my_thread_3 = threading.Thread(target=scan_one_ip_address)
+    my_thread_4 = threading.Thread(target=scan_one_ip_address)
+    my_thread.start()
+    time.sleep(3)
+    my_thread_2.start()
+    time.sleep(3)
+    my_thread_3.start()
+    time.sleep(3)
+    my_thread_4.start()
 
-    setup_ip_address('192.168.15.53')
+    # setup_ip_address('192.168.15.53')
