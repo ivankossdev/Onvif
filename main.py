@@ -1,11 +1,11 @@
 import netifaces
 from onvif import ONVIFCamera
+from FileParser import file_parser
 import getmac
 from netifaces import interfaces, ifaddresses, AF_INET
 import requests
 import subprocess
 import time
-import os
 import pathlib
 import threading
 
@@ -105,31 +105,21 @@ def thread_scanner():
 
 
 if __name__ == '__main__':
-    # print("Сетевые адреса")
-    # addr = netifaces.ifaddresses(interfaces()[0])
-    # for x in addr[netifaces.AF_INET]:
-    #     print(x)
-    # print("Камеры")
-    # clear_arp_table()
-    # print(search_ip_address(50, 53))
-    # subprocess.call('arp -a', shell=True)
-    # print(search_ip_address(52, 53))
 
-    setup_ip_address('192.168.15.52')
-    setup_ip_address('192.168.15.53')
-    setup_ip_address('192.168.15.54')
-    setup_ip_address('192.168.15.55')
-    setup_ip_address('192.168.15.56')
-    setup_ip_address('192.168.15.57')
-    setup_ip_address('192.168.15.58')
-    # scan_one_ip_address()
-
-    # path = pathlib.Path("arp-ping.exe")
-    # with open('output.txt', 'w') as output:
-    #     process = subprocess.Popen(f"{path} 192.168.0.250 -n 10", stdout=output)
-    #     process.communicate()
-
-    # thread_scanner()
+    print('ok')
 
 
-    # setup_ip_address('192.168.15.53')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
